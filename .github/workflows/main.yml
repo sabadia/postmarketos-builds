@@ -87,8 +87,7 @@ jobs:
             
       - name: Build the xiaomi-pipa with GNOME Mobile
         run: |
-           yes | pmbootstrap zap
-           rm -r out/*
+           cp xiaomi-pipa.cfg ~/.config/pmbootstrap_v3.cfg
            pmbootstrap install --password 147147 --add postmarketos-ui-gnome-mobile
            pmbootstrap export
            cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-pipa-mobile.img
@@ -133,17 +132,17 @@ jobs:
       #      retention-days: 7
            
            
-      # - name: Copy xiaomi-pipa kernel
-      #   run: |
-      #      rm -r out/*
-      #      cp ~/.local/var/pmbootstrap/packages/edge/aarch64/linux-postmarketos-qcom-sm8250-pipa-*.apk out/
+      - name: Copy xiaomi-pipa kernel
+        run: |
+           rm -r out/*
+           cp ~/.local/var/pmbootstrap/packages/edge/aarch64/linux-postmarketos-qcom-sm8250-pipa-*.apk out/
       
-      # - name: Upload artifacts xiaomi-pipa kernel
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #      name: xiaomi-pipa-kernel
-      #      path: out/*.apk
-      #      retention-days: 7
+      - name: Upload artifacts xiaomi-pipa kernel
+        uses: actions/upload-artifact@v4
+        with:
+           name: xiaomi-pipa-kernel
+           path: out/*.apk
+           retention-days: 7
 
 
 
