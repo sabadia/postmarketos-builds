@@ -1,9 +1,7 @@
-name: Build pipa images
+name: Build pipa gnome mobile
 on:
   push: # Build when push
-  workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * 5' # Start build every friday
+  
 
 jobs:
   build-image:
