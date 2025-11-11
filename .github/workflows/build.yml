@@ -87,6 +87,30 @@ jobs:
            path: out/*.img*
            retention-days: 7
             
+      - name: Build the xiaomi-pipa with GNOME Mobile
+        run: |
+           yes | pmbootstrap zap
+           rm -r out/*
+           pmbootstrap install --password 147147 --add postmarketos-ui-gnome-mobile
+           pmbootstrap export
+           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-pipa-mobile.img
+           cp /tmp/postmarketOS-export/xiaomi-pipa.img out/rootfs-xiaomi-pipa-gnome-mobile.img
+
+      - name: Breakpoint if tests failed for xiaomi-pipa with GNOME Mobile
+        if: failure()
+        uses: namespacelabs/breakpoint-action@v0
+        with:
+          duration: 30m
+          authorized-users: nixxizlab
+            
+      - name: Upload artifacts xiaomi-pipa with GNOME Mobile
+        uses: actions/upload-artifact@v4
+        with:
+           name: xiaomi-pipa-gnome-mobile
+           path: out/*.img*
+           retention-days: 7
+           
+
       - name: Build the xiaomi-pipa with GNOME
         run: |
            yes | pmbootstrap zap
@@ -109,6 +133,7 @@ jobs:
            name: xiaomi-pipa-gnome
            path: out/*.img*
            retention-days: 7
+           
            
       - name: Copy xiaomi-pipa kernel
         run: |
